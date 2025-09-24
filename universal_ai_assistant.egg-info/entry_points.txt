@@ -1,0 +1,2 @@
+[console_scripts]
+universal-assistant = src.cli:main

@@ -1,0 +1,111 @@
+# Universal Assistant Configuration
+
+# Model Configuration
+model:
+  backbone:
+    text_model_name: "microsoft/DialoGPT-medium"
+    vision_model_name: "google/vit-base-patch16-224" 
+    hidden_dim: 768
+    output_dim: 512
+  
+  embed_dim: 512
+  task_domains: ["nlp", "vision", "code", "math"]
+  meta_algorithm: "maml"
+  
+  # Meta-learning parameters
+  meta_kwargs:
+    inner_lr: 0.01
+    outer_lr: 0.001
+    inner_steps: 5
+    first_order: false
+
+# Default Tasks Configuration
+default_tasks:
+  sentiment_analysis:
+    type: "classification"
+    modality: "text"
+    num_classes: 2
+  
+  topic_classification:
+    type: "classification"  
+    modality: "text"
+    num_classes: 10
+  
+  image_classification:
+    type: "classification"
+    modality: "vision"
+    num_classes: 1000
+  
+  code_completion:
+    type: "generation"
+    modality: "code"
+  
+  math_solving:
+    type: "regression"
+    modality: "text"
+
+# Training Configuration
+training:
+  num_epochs: 100
+  batch_size: 16
+  learning_rate: 0.001
+  weight_decay: 1e-5
+  save_every: 10
+  checkpoint_dir: "./checkpoints"
+  
+  # Episode generation
+  episodes:
+    n_way: 5
+    k_shot: 5
+    query_shots: 15
+    num_train_episodes: 10000
+    num_val_episodes: 1000
+
+# Evaluation Configuration  
+evaluation:
+  n_shots_list: [1, 5, 10, 20]
+  num_test_episodes: 1000
+  num_adaptation_steps: 5
+  
+  # Benchmark datasets
+  benchmarks:
+    - "mini_imagenet"
+    - "omniglot" 
+    - "tiered_imagenet"
+    - "few_rel"
+    - "glue_few_shot"
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  log_file: "./logs/training.log"
+  wandb:
+    enabled: false
+    project: "universal-assistant"
+    entity: null
+
+# Hardware Configuration
+hardware:
+  device: "auto"  # auto, cpu, cuda, mps
+  mixed_precision: true
+  num_workers: 4
+
+# Data Configuration
+data:
+  cache_dir: "./data/cache"
+  download_dir: "./data/downloads"
+  max_examples_per_task: 10000
+  
+  # Preprocessing
+  text:
+    max_length: 512
+    tokenizer: "bert-base-uncased"
+  
+  vision:
+    image_size: 224
+    normalize: true
+    augmentation: true
+  
+  code:
+    max_length: 1024
+    tokenizer: "microsoft/CodeBERT-base"
