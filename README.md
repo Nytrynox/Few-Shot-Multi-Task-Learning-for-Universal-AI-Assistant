@@ -1,158 +1,39 @@
-# Few-Shot Multi-Task Learning for Universal AI Assistant
+# Few-Shot Universal AI Assistant
 
 ## Overview
+A versatile AI assistant capable of learning new tasks with minimal examples (few-shot learning). This project explores multi-task learning architectures to create a general-purpose agent that adapts quickly to novel instructions without extensive retraining.
 
-This project implements a few-shot multi-task learning framework for building a universal AI assistant capable of rapidly adapting to new tasks with minimal examples. The system combines meta-learning techniques with multi-task learning to create an AI assistant that can handle diverse domains including natural language processing, computer vision, code generation, and reasoning tasks.
+## Features
+-   **Meta-Learning**: Optimization-based approach (MAML) for fast adaptation.
+-   **Multi-Task Support**: Handles NLP, basic vision, and control tasks simultaneously.
+-   **Universal Interface**: Unified input format for diverse commands.
+-   **Efficient**: Low-resource requirement for fine-tuning on new tasks.
 
-## Key Features
+## Technology Stack
+-   **Model**: Transformer-based architecture (e.g., GPT/BERT variant).
+-   **Framework**: PyTorch / Hugging Face.
+-   **Training**: Meta-learning algorithms.
 
-- **Few-Shot Learning**: Rapid adaptation to new tasks with minimal training examples
-- **Multi-Task Learning**: Shared representations across multiple task domains
-- **Meta-Learning**: Model-Agnostic Meta-Learning (MAML) and Prototypical Networks
-- **Universal Capabilities**: NLP, Vision, Code Generation, Mathematical Reasoning
-- **Modular Architecture**: Easily extensible for new tasks and domains
-- **Efficient Training**: Gradient-based meta-learning with task sampling strategies
-- **Interactive Interfaces**: Command-line and graphical user interfaces for easy interaction
+## Usage Flow
+1.  **Define**: User provides 3-5 examples of a new task.
+2.  **Adapt**: Model updates its weights locally in a few steps.
+3.  **Execute**: Agent performs the new task on unseen data.
+4.  **Refine**: Optional feedback loop to improve accuracy.
 
-## Architecture
-
-### Core Components
-
-1. **Meta-Learner**: Implements MAML and other meta-learning algorithms
-2. **Multi-Task Backbone**: Shared feature extraction across domains
-3. **Task-Specific Heads**: Specialized output layers for different task types
-4. **Few-Shot Adapters**: Rapid adaptation mechanisms for new tasks
-5. **Universal Interface**: Unified API for different assistant capabilities
-
-### Supported Task Domains
-
-- **Natural Language Processing**: Text classification, generation, summarization
-- **Computer Vision**: Image classification, object detection, visual QA
-- **Code Generation**: Programming assistance, code completion, debugging
-- **Mathematical Reasoning**: Problem solving, equation solving, proof assistance
-- **Conversational AI**: Dialog management, context understanding
-
-## Project Structure
-
-```
-├── src/
-│   ├── core/              # Core meta-learning algorithms
-│   ├── models/            # Model architectures
-│   ├── tasks/             # Task-specific implementations
-│   ├── data/              # Data loading and processing
-│   ├── training/          # Training loops and optimization
-│   ├── evaluation/        # Metrics and evaluation
-│   └── utils/             # Utility functions
-├── experiments/           # Experiment configurations
-├── data/                 # Dataset storage
-├── configs/              # Configuration files
-├── notebooks/            # Jupyter notebooks for analysis
-├── tests/                # Unit tests
-└── requirements.txt      # Dependencies
-```
-
-## Installation
-
+## Quick Start
 ```bash
 # Clone the repository
-git clone <repository-url>
-cd vishnu
+git clone https://github.com/Nytrynox/Few-Shot-AI-Assistant.git
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Install the package in development mode
-pip install -e .
+# Run demo
+python demo.py --task "sentiment_analysis"
 ```
-
-## Quick Start
-
-```python
-from src.models.universal_assistant import UniversalAssistant
-from src.core.meta_learner import MAMLLearner
-
-# Initialize the universal assistant
-assistant = UniversalAssistant(
-    backbone="transformer",
-    meta_learner="maml",
-    task_domains=["nlp", "vision", "code", "math"]
-)
-
-# Few-shot adaptation to a new task
-support_set = load_support_examples(task="sentiment_analysis", n_shots=5)
-assistant.adapt(support_set)
-
-# Use the adapted model
-query = "This movie is amazing!"
-result = assistant.predict(query, task_type="text_classification")
-```
-
-## Usage
-
-### Command Line Interface
-
-```bash
-# Interactive mode
-python src/cli.py --interactive
-
-# Single-shot mode
-python src/cli.py --task sentiment_analysis --input "This movie was fantastic!"
-```
-
-### Graphical User Interface (GUI)
-
-```bash
-# Make the script executable (one-time setup)
-chmod +x run_gui.sh
-
-# Launch the GUI
-./run_gui.sh
-```
-
-The GUI will automatically open in your default web browser at http://localhost:8501 and provides:
-- Interactive task demonstration with few-shot examples
-- Task management (create, view, delete tasks)
-- Model performance visualization and analytics
-- Settings configuration
-
-## Training
-
-```bash
-# Train the universal assistant
-python scripts/train.py --config configs/universal_assistant.yaml
-
-# Meta-learning on multiple tasks
-python scripts/meta_train.py --tasks nlp,vision,code --n_shots 5
-
-# Evaluate few-shot performance
-python scripts/evaluate.py --model_path checkpoints/best_model.pt --test_tasks data/test_tasks.json
-```
-
-## Experiments
-
-The `experiments/` directory contains various experimental configurations:
-
-- **Baseline Experiments**: Standard multi-task learning without meta-learning
-- **MAML Experiments**: Model-Agnostic Meta-Learning implementations
-- **Prototypical Networks**: Distance-based few-shot learning
-- **Task Sampling Strategies**: Different approaches to task selection during training
-- **Cross-Domain Transfer**: Evaluation across different task domains
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Implement your changes with tests
-4. Submit a pull request
 
 ## License
+MIT License
 
-MIT License - see LICENSE file for details.
-
-## References
-
-- Finn, C., Abbeel, P., & Levine, S. (2017). Model-agnostic meta-learning for fast adaptation of deep networks.
-- Snell, J., Swersky, K., & Zemel, R. (2017). Prototypical networks for few-shot learning.
-- Caruana, R. (1997). Multitask learning.
-- Hospedales, T., et al. (2021). Meta-learning in neural networks: A survey.
-# Few-Shot-Multi-Task-Learning-for-Universal-AI-Assistant
+## Author
+**Karthik Idikuda**
